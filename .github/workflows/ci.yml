@@ -1,0 +1,34 @@
+name: Sidekick CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Type Check
+      run: npm run compile
+
+    - name: Build Extension
+      # We skip the zip command in CI usually, but build helps verify validity
+      run: npm run build
+      env:
+        # If build requires keys, we might need secrets here.
+        # But for valid compilation, usually distinct from runtime keys.
+        VI_MODE: production
