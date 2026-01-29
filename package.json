@@ -14,7 +14,6 @@
     "zip": "wxt zip",
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
-    "postinstall": "wxt prepare",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
