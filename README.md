@@ -1,5 +1,9 @@
 # 🚀 Sidekick - AI Browser assistant (v1.0.0)
 
+<div align="center">
+  <img src="./sidekick_logo.png" alt="Sidekick Logo" width="200"/>
+</div>
+
 **Sidekick** is a cross-browser, context-aware AI assistant built for the 2026 Gemini Hackathon. It leverages **Gemini 3 Flash** and **Mem0** to provide high-fidelity assistance for PDFs, Kaggle coding, and Google Docs while maintaining a strict **Human-in-the-Loop** (HITL) architecture.
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
