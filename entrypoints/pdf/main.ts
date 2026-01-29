@@ -86,12 +86,12 @@ async function renderPage(num: number) {
     }
 
     const textContent = await page.getTextContent();
-    pdfjsLib.renderTextLayer({
+    const textLayer = new pdfjsLib.TextLayer({
         textContentSource: textContent,
         container: textLayerDiv,
-        viewport: viewport,
-        textDivs: []
+        viewport: viewport
     });
+    await textLayer.render();
 }
 
 // Controls

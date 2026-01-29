@@ -12,7 +12,7 @@
         ]
     },
     "include": [
-        "wxt-env.d.ts",
+        "types/wxt-env.d.ts",
         "entrypoints/**/*",
         "components/**/*",
         "utils/**/*"
