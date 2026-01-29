@@ -1,32 +1,43 @@
 import { useState, useCallback } from 'react';
-import { model } from '../../../utils/gemini';
-
-export interface Message {
-    id: string;
-    role: 'user' | 'model';
-    text: string;
-}
+import { geminiService } from '../../../services/gemini.service';
+import { ChatMessage } from '../../../types';
 
 export function useChat() {
-    const [messages, setMessages] = useState<Message[]>([
-        { id: '1', role: 'model', text: 'Hi! I\'m Sidekick. How can I help you coding today?' }
+    const [messages, setMessages] = useState<ChatMessage[]>([
+        {
+            id: 'init',
+            role: 'model',
+            text: 'Hi! I\'m Sidekick. How can I help you coding today?',
+            timestamp: Date.now()
+        }
     ]);
     const [isLoading, setIsLoading] = useState(false);
 
     const sendMessage = useCallback(async (text: string) => {
-        const userMsg: Message = { id: Date.now().toString(), role: 'user', text };
+        const userMsg: ChatMessage = {
+            id: Date.now().toString(),
+            role: 'user',
+            text,
+            timestamp: Date.now()
+        };
+
         setMessages(prev => [...prev, userMsg]);
         setIsLoading(true);
 
         try {
-            // Stream the response
-            const result = await model.generateContentStream(text);
+            // Use Service Layer
+            const result = await geminiService.generateStream(text);
 
             let fullText = '';
             const botMsgId = (Date.now() + 1).toString();
 
             // Initial placeholder
-            setMessages(prev => [...prev, { id: botMsgId, role: 'model', text: '' }]);
+            setMessages(prev => [...prev, {
+                id: botMsgId,
+                role: 'model',
+                text: '',
+                timestamp: Date.now()
+            }]);
 
             for await (const chunk of result.stream) {
                 const chunkText = chunk.text();
@@ -37,11 +48,12 @@ export function useChat() {
                 ));
             }
         } catch (error) {
-            console.error('Gemini Error:', error);
+            console.error('Gemini Service Error:', error);
             setMessages(prev => [...prev, {
                 id: (Date.now() + 2).toString(),
-                role: 'model',
-                text: 'Sorry, I encountered an error connecting to Gemini.'
+                role: 'system',
+                text: 'Error connecting to AI Service. Check API Key.',
+                timestamp: Date.now()
             }]);
         } finally {
             setIsLoading(false);

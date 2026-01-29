@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { ChatBubble } from './components/ChatBubble';
+import { ChatBubble } from '../../components/chat/ChatBubble';
 import { useChat } from './hooks/useChat';
 
 function App() {
