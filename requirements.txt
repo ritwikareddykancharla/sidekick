@@ -1,1 +1,10 @@
--r backend/requirements.txt
+google-genai
+fastapi
+uvicorn
+python-dotenv
+pydantic
+pandas
+scikit-learn
+numpy
+beautifulsoup4
+httpx
