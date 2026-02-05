@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
-from backend.agent import nexus, ChatRequest, ChatResponse
+from .agent import nexus, ChatRequest, ChatResponse
 
 app = FastAPI(title="Nexus Sidekick API")
 
