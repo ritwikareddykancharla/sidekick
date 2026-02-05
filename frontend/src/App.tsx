@@ -35,7 +35,7 @@ function App() {
       // Prepare history
       const history = messages.map(m => ({ role: m.role, content: m.content }));
 
-      const response = await axios.post('http://localhost:8002/api/chat', {
+      const response = await axios.post('/api/chat', {
         message: userMsg.content,
         history: history
       });
